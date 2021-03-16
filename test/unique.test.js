@@ -3,13 +3,13 @@ const path = require('path');
 
 const fs = require('fs');
 
-const processor = require('../app/libs/total');
+const processor = require('../app/libs/unique');
 
 const regular = path.resolve(__dirname, 'samples', 'regular.log');
 
 const wrong_line = path.resolve(__dirname, 'samples', 'wrong_line.log');
 
-describe('total', () => {
+describe('unique', () => {
 
   test('regular', async done => {
 
@@ -18,18 +18,18 @@ describe('total', () => {
     expect(data).toEqual([
       [
         "/about/2",
-        6
+        3
       ],
       [
         "/home",
-        3
-      ],
-      [
-        "/help_page/1",
-        3
+        2
       ],
       [
         "/contact",
+        2
+      ],
+      [
+        "/help_page/1",
         2
       ],
       [
@@ -59,8 +59,8 @@ describe('total', () => {
 
   test('format method', done => {
 
-      expect(processor.format('/url', 70)).toEqual(`/url 70 visits\n`);
+    expect(processor.format('/url', 70)).toEqual(`/url 70 unique views\n`);
 
-      done();
+    done();
   });
-});
+})

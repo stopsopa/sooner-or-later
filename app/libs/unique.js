@@ -17,26 +17,29 @@ const mod = fileStream => new Promise((resolve, reject) => {
 
     if (typeof line === 'string' && split.length === 2) {
 
-      if (buff[split[0]]) {
+      if (Array.isArray(buff[split[0]])) {
 
-        buff[split[0]] += 1;
+        if ( ! buff[split[0]].includes(split[1])) {
+
+          buff[split[0]].push(split[1]);
+        }
       }
       else {
 
-        buff[split[0]] = 1;
+        buff[split[0]] = [split[1]];
       }
     }
     else {
 
       reject(`Wrong format of line found in log '${line}'`);
 
-      rl.resume();
+      rl.close();
     }
   });
 
   rl.on('close', e => {
 
-    const sorted = Object.entries(buff);
+    const sorted = Object.entries(buff).map(([url, list]) => ([url, list.length]));
 
     sorted.sort((a, b) => {
 
@@ -48,13 +51,11 @@ const mod = fileStream => new Promise((resolve, reject) => {
       return a[1] < b[1] ? 1 : -1;
     });
 
-    rl.resume();
-
     resolve(sorted);
   });
 });
 
-mod.format = (url, count) => `${url} ${count} visits\n`;
+mod.format = (url, count) => `${url} ${count} unique views\n`;
 
 module.exports = mod;
 
