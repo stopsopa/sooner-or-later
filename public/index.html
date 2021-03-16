@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+
+    <form
+          method="post"
+          enctype="multipart/form-data"
+    >
+        <div>
+
+            <div>
+                choose report type:
+            </div>
+
+            <label>
+                <input type="radio" name="type" value="total">
+                List of webpages with total page views ordered from most to least page views
+            </label>
+
+            <br />
+
+            <label>
+                <input type="radio" name="type" value="unique">
+                List of webpages with total unique page views also ordered from most to least
+            </label>
+        </div>
+
+        <br />
+
+        <label>
+            log file:
+            <input type="file" name="file">
+        </label>
+
+
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>
